@@ -16,7 +16,7 @@
   "build": {
     "appId": "com.precisiontimer.app",
     "productName": "PrecisionTimer",
-    "artifactName": "${productName}-${version}.${ext}",
+    "artifactName": "${productName}.${ext}",
     "win": {
       "target": [
         "nsis",
