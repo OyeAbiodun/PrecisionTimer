@@ -55,7 +55,7 @@ MIT License
 
 ## 👤 Author
 
-OyeAbiodun
+Abiodun Oyewole
 
 ## 🤝 Contributing
 
