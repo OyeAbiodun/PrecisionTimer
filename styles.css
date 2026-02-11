@@ -1,0 +1,475 @@
+:root {
+  --bg: #0b1220;
+  --panel: #111827;
+  --card: #1f2937;
+  --accent: #3b82f6;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --danger: #940707cb;
+  --control-bg: #1f2937;
+  --control-hover: #334155;
+  --shadow: 0 20px 40px rgba(0,0,0,0.4);
+  --ripple: rgba(255,255,255,0.3);
+}
+
+body.light {
+  --bg: #f8fafc;
+  --panel: #ffffff;
+  --card: #f1f5f9;
+  --accent: #2563eb;
+  --text: #0f172a;
+  --muted: #64748b;
+  --danger: #940707cb;
+  --control-bg: #e2e8f0;
+  --control-hover: #cbd5f5;
+  --shadow: 0 20px 40px rgba(0,0,0,0.15);
+  --ripple: rgba(0,0,0,0.2);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@keyframes pulseGlow {
+  0% {
+    text-shadow: 0 0 0 rgba(255, 255, 255, 0.6);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.9),
+                0 0 40px rgba(255, 0, 0, 0.7);
+  }
+  100% {
+    text-shadow: 0 0 0 rgba(255, 255, 255, 0.6);
+  }
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-3px); }
+  40% { transform: translateX(3px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+  100% { transform: translateX(0); }
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  overflow: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+body.overtime {
+  background: var(--danger);
+  color: white;
+}
+
+/* ===== OVERTIME BANNER ===== */
+#overtimeBanner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: #940707cb;
+  color: white;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
+body.overtime #overtimeBanner {
+  transform: translateY(0);
+}
+
+#overtimeLabel {
+  position: absolute;
+  top: 20%;
+  width: 180%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: clamp(60px, 6vw, 72px);
+  font-weight: 800;
+  letter-spacing: 24px;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+@keyframes bounceOvertime {
+  0%, 100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, -12px);
+  }
+}
+
+body.overtime #overtimeLabel {
+  opacity: 1;
+  animation: bounceOvertime 1s infinite ease-in-out;
+}
+
+body.overtime .display-area {
+  animation: shake 0.5s ease-in-out 2;
+}
+
+.app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 100%;
+  background: var(--panel);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: var(--shadow);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 20;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.sidebar-header button {
+  background: none;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  font-size: 18px;
+}
+
+.sidebar-header button:hover {
+  background: var(--control-hover);
+}
+
+.preset-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.preset-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--card);
+  padding: 12px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.preset-item:hover {
+  background: var(--control-hover);
+}
+
+.preset-label {
+  font-weight: 600;
+}
+
+.preset-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.preset-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.preset-actions button:hover {
+  background: var(--control-hover);
+  color: var(--text);
+}
+
+.add-preset-btn {
+  margin-top: auto;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.15s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.add-preset-btn:hover {
+  filter: brightness(1.1);
+}
+
+/* Header */
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+}
+
+.left-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hamburger-btn,
+.theme-toggle-btn {
+  background: var(--control-bg);
+  border: none;
+  color: var(--text);
+  padding: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hamburger-btn:hover,
+.theme-toggle-btn:hover {
+  background: var(--control-hover);
+}
+
+.hamburger-btn svg,
+.theme-toggle-btn svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+/* Display */
+.display-area {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(180px, 26vw, 460px);
+  font-weight: 600;
+  letter-spacing: 10px;
+  user-select: none;
+  text-align: center;
+  pointer-events: none;
+}
+
+.display-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Controls */
+.controls {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.controls.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.app:hover .controls.hidden {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.icon-btn {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  border: none;
+  background: var(--control-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.1s ease, background 0.2s ease;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.icon-btn:hover {
+  background: var(--control-hover);
+  transform: scale(1.05);
+}
+
+.icon-btn.primary {
+  background: var(--accent);
+  color: white;
+}
+
+.icon-btn.primary:hover {
+  filter: brightness(1.1);
+}
+
+.icon-btn svg {
+  width: 36px;
+  height: 36px;
+  fill: currentColor;
+}
+
+/* Ripple Effect */
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 600ms linear;
+  background: var(--ripple);
+  pointer-events: none;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal {
+  background: var(--panel);
+  border-radius: 24px;
+  padding: 28px;
+  width: 380px;
+  max-width: calc(100% - 40px);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal-title {
+  font-size: 22px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.time-inputs {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.time-inputs input {
+  width: 90px;
+  font-size: 36px;
+  padding: 12px;
+  border-radius: 14px;
+  border: none;
+  text-align: center;
+  background: var(--card);
+  color: var(--text);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: flex-end;
+}
+
+.modal-actions button {
+  padding: 12px 22px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-save {
+  background: var(--accent);
+  color: white;
+}
+
+.modal-cancel {
+  background: var(--control-bg);
+  color: var(--text);
+}
