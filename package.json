@@ -16,10 +16,32 @@
   "build": {
     "appId": "com.precisiontimer.app",
     "productName": "PrecisionTimer",
-    "artifactName": "${productName}.${ext}",
+    "artifactName": "${productName}-${version}.${ext}",
     "win": {
-      "target": "nsis",
+      "target": [
+        "nsis",
+        "portable",
+        "zip"
+      ],
       "icon": "icon.png"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "icon.icns",
+      "category": "public.app-category.utilities"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb",
+        "rpm",
+        "tar.gz"
+      ],
+      "icon": "icon.png",
+      "category": "Utility"
     }
   },
   "keywords": []
