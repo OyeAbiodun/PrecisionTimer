@@ -7,7 +7,7 @@
     "start": "electron .",
     "build": "electron-builder"
   },
-  "author": "Your Name",
+  "author": "Abiodun Oyewole",
   "license": "MIT",
   "devDependencies": {
     "electron": "^30.5.1",
@@ -16,6 +16,7 @@
   "build": {
     "appId": "com.precisiontimer.app",
     "productName": "PrecisionTimer",
+    "artifactName": "${productName}.${ext}",
     "win": {
       "target": "nsis",
       "icon": "icon.png"
