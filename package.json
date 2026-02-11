@@ -7,7 +7,10 @@
     "start": "electron .",
     "build": "electron-builder"
   },
-  "author": "Abiodun Oyewole",
+  "author": {
+    "name": "Abiodun Oyewole",
+    "email": "abiodunoyewole994@gmail.com"
+  },
   "license": "MIT",
   "devDependencies": {
     "electron": "^30.5.1",
@@ -37,7 +40,6 @@
       "target": [
         "AppImage",
         "deb",
-        "rpm",
         "tar.gz"
       ],
       "icon": "icon.png",
